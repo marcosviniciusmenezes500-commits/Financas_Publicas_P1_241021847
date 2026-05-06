@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import zipfile
 import os
 
-# Configurações
 zip_dir = '/home/ubuntu/Financas_Publicas_P1_241021847/dados_zipados'
 geojson_path = '/home/ubuntu/minas_gerais_municipios.json'
 output_map = 'q8_mapa_tematico_mg_final.png'
@@ -25,7 +24,6 @@ def extract_and_sum_revenue(year):
             df_resumo['Receita_per_Capita'] = df_resumo['Valor'] / df_resumo['População']
             return df_resumo
 
-# Processar dados de 2023
 print("Processando dados de 2023...")
 df_2023 = extract_and_sum_revenue(2023)
 
@@ -41,10 +39,8 @@ if df_2023 is not None:
     print("Gerando o mapa...")
     fig, ax = plt.subplots(1, 1, figsize=(15, 12))
     
-    # Plotar municípios sem dados em cinza
     gdf_merged.plot(ax=ax, color='lightgrey', edgecolor='white', linewidth=0.1)
     
-    # Plotar dados de receita per capita
     gdf_merged.dropna(subset=['Receita_per_Capita']).plot(
         column='Receita_per_Capita',
         ax=ax,
@@ -57,8 +53,7 @@ if df_2023 is not None:
         linewidth=0.1
     )
     
-    # Marcar Betim e Governador Valadares
-    # Betim: 3106705, Gov. Valadares: 3127701
+
     betim = gdf_merged[gdf_merged['id'] == '3106705']
     gv = gdf_merged[gdf_merged['id'] == '3127701']
     
